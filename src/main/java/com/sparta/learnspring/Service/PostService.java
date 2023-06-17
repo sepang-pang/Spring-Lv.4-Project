@@ -6,14 +6,7 @@ import com.sparta.learnspring.Dto.ResponseDto;
 import com.sparta.learnspring.Entity.Post;
 import com.sparta.learnspring.Repoistory.PostRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 public class PostService {
