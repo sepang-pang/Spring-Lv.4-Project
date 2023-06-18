@@ -6,7 +6,6 @@ import com.sparta.learnspring.Dto.ResponseDto;
 import com.sparta.learnspring.Entity.Post;
 import com.sparta.learnspring.Repoistory.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

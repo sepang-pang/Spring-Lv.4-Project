@@ -3,11 +3,12 @@ package com.sparta.learnspring.Repoistory;
 import com.sparta.learnspring.Dto.RequestDto;
 import com.sparta.learnspring.Dto.ResponseDto;
 import com.sparta.learnspring.Entity.Post;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -83,4 +84,15 @@ public class PostRepository {
             }
         }, id);
     }
+    @Transactional
+    public Post createPost(EntityManager em) {
+        Post post = em.find(Post.class, 1);
+        post.setName("Robbie");
+        post.setContents("@Transactional 전파 테스트 중!");
+        post.setPassword(1234);
+
+        System.out.println("createMemo 메서드 종료");
+        return post;
+    }
+
 }
