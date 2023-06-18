@@ -13,35 +13,33 @@ import java.util.List;
 @RequestMapping("/api")
 public class PostsController {
 
-    private final JdbcTemplate jdbcTemplate;
+    private final PostService postService;
 
     public PostsController(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+        this.postService = new PostService(jdbcTemplate);
     }
 
     // 게시글 작성
     @PostMapping("/posts")
     public ResponseDto responseDto(@RequestBody RequestDto requestDto) {
-        PostService postService = new PostService(jdbcTemplate);
         return postService.createPost(requestDto);
     }
 
+    // 게시글 조회
     @GetMapping("/posts")
     public List<ResponseDto> displayPost() {
-        PostService postService = new PostService(jdbcTemplate);
         return postService.displayPost();
     }
 
+    // 게시슬 수정
     @PutMapping("/posts/{id}")
     public String UpdateDto(@PathVariable Long id, @RequestBody RequestDto requestDto) {
-        PostService postService = new PostService(jdbcTemplate);
         return postService.updatePost(id, requestDto);
     }
 
-
+    // 게시글 삭제
     @DeleteMapping("/posts/{id}")
     public BooleanDto booleanDto(@PathVariable Long id) {
-        PostService postService = new PostService(jdbcTemplate);
         return postService.deletePost(id);
     }
 }

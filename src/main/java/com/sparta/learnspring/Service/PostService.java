@@ -11,17 +11,16 @@ import java.util.List;
 
 public class PostService {
 
-    private final JdbcTemplate jdbcTemplate;
+    private final PostRepository postRepository;
 
     public PostService(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+        this.postRepository = new PostRepository(jdbcTemplate);
     }
     public ResponseDto createPost(RequestDto requestDto) {
         // 제이슨 - > 엔티티화
         Post post = new Post(requestDto);
 
         // DB 저장
-        PostRepository postRepository = new PostRepository(jdbcTemplate);
         Post savePost = postRepository.save(post);
 
 
@@ -32,12 +31,10 @@ public class PostService {
 
     public List<ResponseDto> displayPost() {
         // DB 조회
-        PostRepository postRepository = new PostRepository(jdbcTemplate);
         return postRepository.findAll();
     }
 
     public String updatePost(Long id, RequestDto requestDto) {
-        PostRepository postRepository = new PostRepository(jdbcTemplate);
         Post post = postRepository.findById(id);
 
         if (post != null) {
@@ -50,7 +47,6 @@ public class PostService {
 
     public BooleanDto deletePost(Long id) {
         // 해당 게시글이 존재하지는지 확인
-        PostRepository postRepository = new PostRepository(jdbcTemplate);
         Post post = postRepository.findById(id);
 
         if (post != null) {
