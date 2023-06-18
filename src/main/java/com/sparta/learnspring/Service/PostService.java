@@ -5,16 +5,18 @@ import com.sparta.learnspring.Dto.RequestDto;
 import com.sparta.learnspring.Dto.ResponseDto;
 import com.sparta.learnspring.Entity.Post;
 import com.sparta.learnspring.Repoistory.PostRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class PostService {
 
     private final PostRepository postRepository;
 
-    public PostService(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
     public ResponseDto createPost(RequestDto requestDto) {
         // 제이슨 - > 엔티티화
         Post post = new Post(requestDto);

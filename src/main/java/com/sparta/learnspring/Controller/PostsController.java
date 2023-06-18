@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@RestController // 내부에서 해당 컨트롤러를 사용하고 있다 !
 @RequestMapping("/api")
 public class PostsController {
 // 컨트롤러 -> 서비스 -> 리포지토리
