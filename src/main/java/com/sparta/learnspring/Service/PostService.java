@@ -5,7 +5,6 @@ import com.sparta.learnspring.Dto.RequestDto;
 import com.sparta.learnspring.Dto.ResponseDto;
 import com.sparta.learnspring.Entity.Post;
 import com.sparta.learnspring.Repoistory.PostRepository;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
@@ -13,8 +12,8 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public PostService(JdbcTemplate jdbcTemplate) {
-        this.postRepository = new PostRepository(jdbcTemplate);
+    public PostService(PostRepository postRepository) {
+        this.postRepository = postRepository;
     }
     public ResponseDto createPost(RequestDto requestDto) {
         // 제이슨 - > 엔티티화

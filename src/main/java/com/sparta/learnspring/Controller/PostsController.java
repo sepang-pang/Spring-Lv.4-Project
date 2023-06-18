@@ -4,7 +4,6 @@ import com.sparta.learnspring.Dto.BooleanDto;
 import com.sparta.learnspring.Dto.RequestDto;
 import com.sparta.learnspring.Dto.ResponseDto;
 import com.sparta.learnspring.Service.PostService;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,11 +11,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class PostsController {
-
+// 컨트롤러 -> 서비스 -> 리포지토리
     private final PostService postService;
 
-    public PostsController(JdbcTemplate jdbcTemplate) {
-        this.postService = new PostService(jdbcTemplate);
+    public PostsController(PostService postService) {
+        this.postService = postService;
     }
 
     // 게시글 작성
