@@ -7,12 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Setter
 @Getter
 @Table(name = "post")
 @NoArgsConstructor
-public class Post {
+public class Post extends com.sparta.memo.entity.Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,6 +24,7 @@ public class Post {
     private String contents;
     @Column(name = "password", nullable = false)
     private Integer password;
+
 
     public Post(RequestDto requestDto) {
         this.name = requestDto.getName();
