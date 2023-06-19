@@ -5,6 +5,7 @@ import com.sparta.learnspring.Dto.RequestDto;
 import com.sparta.learnspring.Dto.ResponseDto;
 import com.sparta.learnspring.Entity.Post;
 import com.sparta.learnspring.Repoistory.PostRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,30 +32,30 @@ public class PostService {
 
     public List<ResponseDto> displayPost() {
         // DB 조회
-        return postRepository.findAll();
+        return postRepository.findAll().stream().map(ResponseDto::new).toList();
     }
-
+    @Transactional
     public String updatePost(Long id, RequestDto requestDto) {
-        Post post = postRepository.findById(id);
+        // 해당 메모가 존재하는지 확인 // Optional
+        Post post = findPost(id);
 
-        if (post != null) {
-            postRepository.update(id, requestDto);
-            return "수정이 완료되었습니다.";
-        } else {
-            throw new IllegalArgumentException("선택한 메모는 존재하지 않습니다.");
-        }
+        post.update(requestDto);
+        return "수정이 완료되었습니다.";
     }
 
     public BooleanDto deletePost(Long id) {
         // 해당 게시글이 존재하지는지 확인
-        Post post = postRepository.findById(id);
+        Post post = findPost(id);
 
-        if (post != null) {
-            // 게시글 삭제
-            postRepository.delete(id);
-            return new BooleanDto(true);
-        } else {
-            throw new IllegalArgumentException("선택한 메모는 존재하지 않습니다.");
-        }
+        // 게시글 삭제
+        postRepository.delete(post);
+        return new BooleanDto(true);
+
+    }
+
+    private Post findPost(Long id) {
+        return postRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("선택한 메모는 존재하지 않습니다.")
+        );
     }
 }
