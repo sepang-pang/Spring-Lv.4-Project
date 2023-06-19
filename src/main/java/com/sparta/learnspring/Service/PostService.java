@@ -32,7 +32,7 @@ public class PostService {
 
     public List<ResponseDto> displayPost() {
         // DB 조회
-        return postRepository.findAll().stream().map(ResponseDto::new).toList();
+        return postRepository.findAllByOrderByModifiedAtDesc().stream().map(ResponseDto::new).toList();
     }
     @Transactional
     public String updatePost(Long id, RequestDto requestDto) {
