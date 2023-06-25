@@ -31,9 +31,9 @@ public class PostsController {
     }
 
     // 선택 게시글 조회
-    @GetMapping("/posts/{name}")
-    public List<ResponseDto> selectDisplayPost(@PathVariable String name) {
-        return postService.selectDisplayPost(name);
+    @GetMapping("/posts/{username}")
+    public List<ResponseDto> selectDisplayPost(@PathVariable String username) {
+        return postService.selectDisplayPost(username);
     }
 
     // 게시슬 수정

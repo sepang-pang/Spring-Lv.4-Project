@@ -37,9 +37,9 @@ public class PostService {
     }
 
     // 선택 조회
-    public List<ResponseDto> selectDisplayPost(String name) {
+    public List<ResponseDto> selectDisplayPost(String username) {
         // DB 조회
-        return postRepository.findAllByName(name).stream().map(ResponseDto::new).toList();
+        return postRepository.findAllByUsername(username).stream().map(ResponseDto::new).toList();
     }
 
 

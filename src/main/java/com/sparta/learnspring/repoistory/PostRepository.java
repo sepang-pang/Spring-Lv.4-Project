@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByOrderByModifiedAtDesc();
-    List<Post> findAllByName (String name);
+    List<Post> findAllByUsername (String username);
 }

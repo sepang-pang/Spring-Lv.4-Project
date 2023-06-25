@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ResponseDto {
-    private String name;
+    private String username;
     private String contents;
     private Long id;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
     public ResponseDto(Post post) {
-        this.name = post.getName();
+        this.username = post.getUsername();
         this.contents = post.getContents();
         this.id = post.getId();
         this.createdAt = post.getCreatedAt();
