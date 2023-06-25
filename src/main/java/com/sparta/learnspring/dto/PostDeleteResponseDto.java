@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BooleanDto {
+public class PostDeleteResponseDto {
     private Boolean success;
 
-    public BooleanDto(boolean success) {
+    public PostDeleteResponseDto(boolean success) {
         this.success = success;
     }
 }

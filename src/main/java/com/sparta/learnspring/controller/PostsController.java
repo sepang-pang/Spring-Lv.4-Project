@@ -1,6 +1,6 @@
 package com.sparta.learnspring.controller;
 
-import com.sparta.learnspring.dto.BooleanDto;
+import com.sparta.learnspring.dto.PostDeleteResponseDto;
 import com.sparta.learnspring.dto.RequestDto;
 import com.sparta.learnspring.dto.ResponseDto;
 import com.sparta.learnspring.service.PostService;
@@ -44,7 +44,7 @@ public class PostsController {
 
     // 게시글 삭제
     @DeleteMapping("/posts/{id}")
-    public BooleanDto booleanDto(@PathVariable Long id, @RequestBody RequestDto requestDto) {
+    public PostDeleteResponseDto booleanDto(@PathVariable Long id, @RequestBody RequestDto requestDto) {
         return postService.deletePost(id, requestDto);
     }
 }

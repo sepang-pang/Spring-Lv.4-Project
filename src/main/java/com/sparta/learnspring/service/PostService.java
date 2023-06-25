@@ -1,6 +1,6 @@
 package com.sparta.learnspring.service;
 
-import com.sparta.learnspring.dto.BooleanDto;
+import com.sparta.learnspring.dto.PostDeleteResponseDto;
 import com.sparta.learnspring.dto.RequestDto;
 import com.sparta.learnspring.dto.ResponseDto;
 import com.sparta.learnspring.entity.Post;
@@ -59,7 +59,7 @@ public class PostService {
 
     }
 
-    public BooleanDto deletePost(Long id, RequestDto requestDto) {
+    public PostDeleteResponseDto deletePost(Long id, RequestDto requestDto) {
         // 해당 게시글이 존재하지는지 확인
         Post post = findPost(id);
 
@@ -67,10 +67,10 @@ public class PostService {
         if (post.getPassword().equals(requestDto.getPassword())) {
             // 게시글 삭제
             postRepository.delete(post);
-            return new BooleanDto(true);
+            return new PostDeleteResponseDto(true);
         } else {
             new IllegalArgumentException("비밀번호가 존재하지 않습니다.");
-            return new BooleanDto(false);
+            return new PostDeleteResponseDto(false);
         }
 
     }
