@@ -1,9 +1,9 @@
-package com.sparta.learnspring.Controller;
+package com.sparta.learnspring.controller;
 
-import com.sparta.learnspring.Dto.BooleanDto;
-import com.sparta.learnspring.Dto.RequestDto;
-import com.sparta.learnspring.Dto.ResponseDto;
-import com.sparta.learnspring.Service.PostService;
+import com.sparta.learnspring.dto.BooleanDto;
+import com.sparta.learnspring.dto.RequestDto;
+import com.sparta.learnspring.dto.ResponseDto;
+import com.sparta.learnspring.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,12 +22,18 @@ public class PostsController {
     @PostMapping("/posts")
     public ResponseDto responseDto(@RequestBody RequestDto requestDto) {
         return postService.createPost(requestDto);
-    }
+}
 
     // 게시글 조회
     @GetMapping("/posts")
     public List<ResponseDto> displayPost() {
         return postService.displayPost();
+    }
+
+    // 선택 게시글 조회
+    @GetMapping("/posts/{name}")
+    public List<ResponseDto> selectDisplayPost(@PathVariable String name) {
+        return postService.selectDisplayPost(name);
     }
 
     // 게시슬 수정
@@ -38,7 +44,7 @@ public class PostsController {
 
     // 게시글 삭제
     @DeleteMapping("/posts/{id}")
-    public BooleanDto booleanDto(@PathVariable Long id) {
-        return postService.deletePost(id);
+    public BooleanDto booleanDto(@PathVariable Long id, @RequestBody RequestDto requestDto) {
+        return postService.deletePost(id, requestDto);
     }
 }

@@ -1,6 +1,6 @@
-package com.sparta.learnspring.Dto;
+package com.sparta.learnspring.dto;
 
-import com.sparta.learnspring.Entity.Post;
+import com.sparta.learnspring.entity.Post;
 import lombok.Getter;
 import lombok.Setter;
 

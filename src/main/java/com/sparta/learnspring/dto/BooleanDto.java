@@ -1,4 +1,4 @@
-package com.sparta.learnspring.Dto;
+package com.sparta.learnspring.dto;
 
 import lombok.Getter;
 import lombok.Setter;

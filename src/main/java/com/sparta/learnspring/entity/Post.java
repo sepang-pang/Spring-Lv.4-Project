@@ -1,20 +1,17 @@
-package com.sparta.learnspring.Entity;
+package com.sparta.learnspring.entity;
 
-import com.sparta.learnspring.Dto.RequestDto;
-import com.sparta.learnspring.Dto.ResponseDto;
+import com.sparta.learnspring.dto.RequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Setter
 @Getter
 @Table(name = "post")
 @NoArgsConstructor
-public class Post extends com.sparta.memo.entity.Timestamped {
+public class Post extends com.sparta.learnspring.entity.Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,11 +27,6 @@ public class Post extends com.sparta.memo.entity.Timestamped {
         this.name = requestDto.getName();
         this.contents = requestDto.getContents();
         this.password = requestDto.getPassword();
-    }
-
-    public Post(ResponseDto responseDto) {
-        this.name = responseDto.getName();
-        this.contents = responseDto.getContents();
     }
 
     public void update (RequestDto requestDto) {

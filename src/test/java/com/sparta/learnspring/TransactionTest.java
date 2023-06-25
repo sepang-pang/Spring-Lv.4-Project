@@ -1,7 +1,7 @@
 package com.sparta.learnspring;
 
-import com.sparta.learnspring.Entity.Post;
-import com.sparta.learnspring.Repoistory.PostRepository;
+import com.sparta.learnspring.entity.Post;
+import com.sparta.learnspring.repoistory.PostRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.Disabled;

@@ -1,6 +1,6 @@
-package com.sparta.learnspring.Repoistory;
+package com.sparta.learnspring.repoistory;
 
-import com.sparta.learnspring.Entity.Post;
+import com.sparta.learnspring.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
