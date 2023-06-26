@@ -25,18 +25,21 @@ public class UserController {
     @GetMapping("/user/login-page")
     @ResponseBody
     public String loginPage() {
+        log.info("로그인 페이지입니다.");
         return "login";
     }
 
     @GetMapping("/user/login-page/error")
     @ResponseBody
     public String error() {
+        log.info("로그인이 실패하였습니다.");
         return "로그인이 실패하였습니다";
     }
 
 
     @GetMapping("/user/signup")
     public String signupPage() {
+        log.info("회원가입 페이지입니다.");
         return "signup";
     }
 
@@ -58,6 +61,7 @@ public class UserController {
     @GetMapping("/user/forbidden")
     @ResponseBody
     public String forbidden() {
+        log.info("접근 불가입니다.");
         return "접근 불가입니다.";
     }
 
