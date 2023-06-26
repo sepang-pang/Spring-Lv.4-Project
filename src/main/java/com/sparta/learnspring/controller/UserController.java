@@ -1,9 +1,7 @@
 package com.sparta.learnspring.controller;
 
-import com.sparta.learnspring.dto.LoginRequestDto;
 import com.sparta.learnspring.dto.SignupRequestDto;
 import com.sparta.learnspring.service.UserService;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,13 +39,13 @@ public class UserController {
         return "redirect:/api/user/login-page";
     }
 
-    @PostMapping("/user/login")
-    public String login(@RequestBody LoginRequestDto requestDto, HttpServletResponse res) {
-        try {
-            userService.login(requestDto, res);
-        } catch (Exception e) {
-            return "redirect:/api/user/login-page/error";
-        }
-        return "redirect:/api/user/login-page";
-    }
+//    @PostMapping("/user/login")
+//    public String login(@RequestBody LoginRequestDto requestDto, HttpServletResponse res) {
+//        try {
+//            userService.login(requestDto, res);
+//        } catch (Exception e) {
+//            return "redirect:/api/user/login-page/error";
+//        }
+//        return "redirect:/api/user/login-page";
+//    }
 }
