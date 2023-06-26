@@ -39,6 +39,12 @@ public class UserController {
         return "redirect:/api/user/login-page";
     }
 
+    @GetMapping("/user/forbidden")
+    @ResponseBody
+    public String forbidden() {
+        return "접근 불가입니다.";
+    }
+
 //    @PostMapping("/user/login")
 //    public String login(@RequestBody LoginRequestDto requestDto, HttpServletResponse res) {
 //        try {
