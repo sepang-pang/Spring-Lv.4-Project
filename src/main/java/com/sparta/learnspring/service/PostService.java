@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -18,9 +19,9 @@ public class PostService {
     private final PostRepository postRepository;
 
     // 입력
-    public ResponseDto createPost(RequestDto requestDto) {
+    public ResponseDto createPost(RequestDto requestDto, Principal principal) {
         // 제이슨 - > 엔티티화
-        Post post = new Post(requestDto);
+        Post post = new Post(requestDto, principal);
 
         // DB 저장
         Post savePost = postRepository.save(post);

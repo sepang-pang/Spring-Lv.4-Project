@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.security.Principal;
+
 @Entity
 @Setter
 @Getter
@@ -23,14 +25,13 @@ public class Post extends com.sparta.learnspring.entity.Timestamped {
     private Integer password;
 
 
-    public Post(RequestDto requestDto) {
-        this.username = requestDto.getUsername();
+    public Post(RequestDto requestDto, Principal principal) {
+        this.username = principal.getName();
         this.contents = requestDto.getContents();
         this.password = requestDto.getPassword();
     }
 
     public void update (RequestDto requestDto) {
-        this.username = requestDto.getUsername();
         this.contents = requestDto.getContents();
     }
 
