@@ -22,7 +22,7 @@ public class Post extends com.sparta.learnspring.entity.Timestamped {
     @Column(name = "contents", nullable = false)
     private String contents;
     @Column(name = "password", nullable = false)
-    private Integer password;
+    private String password;
 
 
     public Post(RequestDto requestDto, Principal principal) {

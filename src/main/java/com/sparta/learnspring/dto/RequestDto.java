@@ -7,6 +7,5 @@ import lombok.Setter;
 @Setter
 public class RequestDto {
     private String contents;
-    private Integer password;
-
+    private String password;
 }
