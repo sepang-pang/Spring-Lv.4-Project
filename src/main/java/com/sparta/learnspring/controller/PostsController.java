@@ -42,7 +42,7 @@ public class PostsController {
 
     // 게시슬 수정
     @PutMapping("/posts/{id}")
-    public String UpdateDto(@PathVariable Long id, @RequestBody RequestDto requestDto, Principal principal) {
+    public List<ResponseDto> UpdateDto(@PathVariable Long id, @RequestBody RequestDto requestDto, Principal principal) {
         return postService.updatePost(id, requestDto, principal);
     }
 
