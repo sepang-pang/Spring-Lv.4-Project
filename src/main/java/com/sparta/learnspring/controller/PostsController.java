@@ -42,13 +42,13 @@ public class PostsController {
 
     // 게시슬 수정
     @PutMapping("/posts/{id}")
-    public String UpdateDto(@PathVariable Long id, @RequestBody RequestDto requestDto) {
-        return postService.updatePost(id, requestDto);
+    public String UpdateDto(@PathVariable Long id, @RequestBody RequestDto requestDto, Principal principal) {
+        return postService.updatePost(id, requestDto, principal);
     }
 
     // 게시글 삭제
     @DeleteMapping("/posts/{id}")
-    public PostDeleteResponseDto booleanDto(@PathVariable Long id, @RequestBody RequestDto requestDto) {
-        return postService.deletePost(id, requestDto);
+    public PostDeleteResponseDto booleanDto(@PathVariable Long id, @RequestBody RequestDto requestDto, Principal principal) {
+        return postService.deletePost(id, requestDto, principal);
     }
 }
