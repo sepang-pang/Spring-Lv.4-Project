@@ -29,10 +29,11 @@ public class PostService {
             Post post = new Post(requestDto, principal);
 
             // DB 저장
-            Post savePost = postRepository.save(post);
+            postRepository.save(post);
 
             // postResponse 로 저장
             ResponseDto responseDto = new ResponseDto(post);
+            log.info("게시글 작성 성공");
             return responseDto;
 
 
@@ -40,29 +41,30 @@ public class PostService {
 
     // 조회
     public List<ResponseDto> displayPost() {
-        // DB 조회
+        log.info("전체 글 조회");
         return postRepository.findAllByOrderByModifiedAtDesc().stream().map(ResponseDto::new).toList();
     }
 
     // 선택 조회
     public List<ResponseDto> selectDisplayPost(String username) {
-        // DB 조회
+        log.info(username + " 의 글을 조회");
         return postRepository.findAllByUsername(username).stream().map(ResponseDto::new).toList();
     }
 
 
     @Transactional
-    public String updatePost(Long id, RequestDto requestDto, Principal principal) {
+    public List<ResponseDto> updatePost(Long id, RequestDto requestDto, Principal principal) {
         // 해당 메모가 존재하는지 확인 // Optional
         Post post = findPost(id);
 
         // 사용자 확인
         if (post.getUsername().equals(principal.getName())) {
             post.update(requestDto);
-            return "수정이 완료되었습니다.";
+            log.info("게시글 수정 성공");
+            return postRepository.findById(id).stream().map(ResponseDto::new).toList();
         } else {
-            new IllegalArgumentException("글 작성자가 아닙니다.");
-            return "수정이 되지 않았습니다";
+            log.info("게시글 수정 실패 : 작성자가 아닙니다.");
+            return null;
         }
 
     }
@@ -75,9 +77,10 @@ public class PostService {
         if (post.getUsername().equals(principal.getName())) {
             // 게시글 삭제
             postRepository.delete(post);
+            log.info("게시글 삭제 성공");
             return new MsgDto("게시글 삭제 성공", HttpStatus.OK.value());
         } else {
-            new IllegalArgumentException("글 작성자가 아닙니다.");
+            log.info("게시글 삭제 실패");
             return new MsgDto("게시글 삭제 실패", HttpStatus.BAD_REQUEST.value());
         }
 
