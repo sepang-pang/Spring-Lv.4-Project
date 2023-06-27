@@ -19,16 +19,17 @@ public class Post extends com.sparta.learnspring.entity.Timestamped {
     private Long id;
     @Column(name = "username", nullable = false)
     private String username;
+    @Column (name = "title", nullable = false)
+    private String title;
     @Column(name = "contents", nullable = false)
     private String contents;
-    @Column(name = "password", nullable = false)
-    private String password;
+
 
 
     public Post(RequestDto requestDto, Principal principal) {
         this.username = principal.getName();
+        this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
-        this.password = requestDto.getPassword();
     }
 
     public void update (RequestDto requestDto) {
