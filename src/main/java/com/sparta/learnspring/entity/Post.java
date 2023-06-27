@@ -33,6 +33,7 @@ public class Post extends com.sparta.learnspring.entity.Timestamped {
     }
 
     public void update (RequestDto requestDto) {
+        this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
     }
 
