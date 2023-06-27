@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 public class ResponseDto {
     private String username;
+    private String title;
     private String contents;
     private Long id;
     private LocalDateTime createdAt;
@@ -17,6 +18,7 @@ public class ResponseDto {
 
     public ResponseDto(Post post) {
         this.username = post.getUsername();
+        this.title = post.getTitle();
         this.contents = post.getContents();
         this.id = post.getId();
         this.createdAt = post.getCreatedAt();
