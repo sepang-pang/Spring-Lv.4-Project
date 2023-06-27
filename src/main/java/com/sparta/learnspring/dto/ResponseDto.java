@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ResponseDto {
-    private String username;
-    private String title;
-    private String contents;
-    private Long id;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private final String username;
+    private final String title;
+    private final String contents;
+    private final Long id;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime modifiedAt;
 
     public ResponseDto(Post post) {
         this.username = post.getUsername();
