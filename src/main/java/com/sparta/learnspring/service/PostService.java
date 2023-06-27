@@ -1,6 +1,6 @@
 package com.sparta.learnspring.service;
 
-import com.sparta.learnspring.dto.PostDeleteResponseDto;
+import com.sparta.learnspring.dto.MsgDto;
 import com.sparta.learnspring.dto.RequestDto;
 import com.sparta.learnspring.dto.ResponseDto;
 import com.sparta.learnspring.entity.Post;
@@ -9,6 +9,7 @@ import com.sparta.learnspring.repoistory.PostRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -66,7 +67,7 @@ public class PostService {
 
     }
 
-    public PostDeleteResponseDto deletePost(Long id, RequestDto requestDto, Principal principal) {
+    public MsgDto deletePost(Long id, RequestDto requestDto, Principal principal) {
         // 해당 게시글이 존재하지는지 확인
         Post post = findPost(id);
 
@@ -74,10 +75,10 @@ public class PostService {
         if (post.getUsername().equals(principal.getName())) {
             // 게시글 삭제
             postRepository.delete(post);
-            return new PostDeleteResponseDto(true);
+            return new MsgDto("게시글 삭제 성공", HttpStatus.OK.value());
         } else {
             new IllegalArgumentException("글 작성자가 아닙니다.");
-            return new PostDeleteResponseDto(false);
+            return new MsgDto("게시글 삭제 실패", HttpStatus.BAD_REQUEST.value());
         }
 
     }
