@@ -22,6 +22,10 @@ public class Comment extends com.sparta.learnspring.entity.Timestamped {
     @Column(name = "contents", nullable = false)
     private String contents;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
+
     public Comment(CommentRequestDto commentRequestDto, Principal principal) {
         this.username = principal.getName();
         this.contents = commentRequestDto.getContents();

@@ -3,8 +3,10 @@ package com.sparta.learnspring.service;
 import com.sparta.learnspring.dto.CommentRequestDto;
 import com.sparta.learnspring.dto.CommentResponseDto;
 import com.sparta.learnspring.entity.Comment;
+import com.sparta.learnspring.entity.Post;
 import com.sparta.learnspring.jwt.JwtUtil;
 import com.sparta.learnspring.repoistory.CommentRepository;
+import com.sparta.learnspring.repoistory.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,18 +19,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentService {
     private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
     private final JwtUtil jwtUtil;
-    public CommentResponseDto createComment(CommentRequestDto commentRequestDto, Principal principal) {
-        // 엔티티 화
-        Comment comment = new Comment(commentRequestDto, principal);
+    public CommentResponseDto createComment(Long postId, CommentRequestDto commentRequestDto, Principal principal) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
 
-        // DB 저장
+        Comment comment = new Comment(commentRequestDto, principal);
+        comment.setPost(post);
         commentRepository.save(comment);
 
-        // response 로 저장
-        CommentResponseDto commentResponseDto = new CommentResponseDto(comment);
-        log.info("댓글 작성 성공");
-        return commentResponseDto;
+        post.updateComments(comment);
+        postRepository.save(post);
+
+        return new CommentResponseDto(comment);
 
     }
 

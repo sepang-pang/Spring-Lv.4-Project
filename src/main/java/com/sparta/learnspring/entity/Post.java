@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
@@ -24,7 +26,12 @@ public class Post extends com.sparta.learnspring.entity.Timestamped {
     @Column(name = "contents", nullable = false)
     private String contents;
 
+    @OneToMany (mappedBy = "post")
+    private List<Comment> commentList = new ArrayList<>();
 
+    public void updateComments (final Comment comment) {
+        commentList.add(comment);
+    }
 
     public Post(PostRequestDto postRequestDto, Principal principal) {
         this.username = principal.getName();
@@ -36,7 +43,4 @@ public class Post extends com.sparta.learnspring.entity.Timestamped {
         this.title = postRequestDto.getTitle();
         this.contents = postRequestDto.getContents();
     }
-
-
-
 }

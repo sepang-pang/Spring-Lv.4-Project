@@ -21,9 +21,9 @@ public class CommentController {
 
     // 댓글 작성
     @Secured(UserRoleEnum.Authority.USER)
-    @PostMapping("/comments")
-    public CommentResponseDto commentResponseDto (@RequestBody CommentRequestDto commentRequestDto, Principal principal) {
-        return commentService.createComment(commentRequestDto, principal);
+    @PostMapping("/comments/{postId}")
+    public CommentResponseDto commentResponseDto (@PathVariable Long postId, @RequestBody CommentRequestDto commentRequestDto, Principal principal) {
+        return commentService.createComment(postId, commentRequestDto, principal);
     }
 
     // 댓글 조회

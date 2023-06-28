@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -13,6 +14,7 @@ public class PostResponseDto {
     private final String title;
     private final String contents;
     private final Long id;
+    private List<CommentResponseDto> commentList;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
@@ -23,7 +25,9 @@ public class PostResponseDto {
         this.id = post.getId();
         this.createdAt = post.getCreatedAt();
         this.modifiedAt = post.getModifiedAt();
+        this.commentList = post.getCommentList().stream()
+                .map(CommentResponseDto::new)
+                .toList();
     }
-
 
 }

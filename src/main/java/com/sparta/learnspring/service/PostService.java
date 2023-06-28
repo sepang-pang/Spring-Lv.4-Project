@@ -36,13 +36,12 @@ public class PostService {
             log.info("게시글 작성 성공");
             return postResponseDto;
 
-
     }
-
     // 조회
     public List<PostResponseDto> displayPost() {
         log.info("전체 글 조회");
-        return postRepository.findAllByOrderByModifiedAtDesc().stream().map(PostResponseDto::new).toList();
+        List<Post> postList = postRepository.findAllByOrderByModifiedAtDesc();
+        return postList.stream().map(PostResponseDto::new).toList();
     }
 
     // 선택 조회
