@@ -1,8 +1,8 @@
 package com.sparta.learnspring.controller;
 
 import com.sparta.learnspring.dto.MsgDto;
-import com.sparta.learnspring.dto.RequestDto;
-import com.sparta.learnspring.dto.ResponseDto;
+import com.sparta.learnspring.dto.PostRequestDto;
+import com.sparta.learnspring.dto.PostResponseDto;
 import com.sparta.learnspring.entity.UserRoleEnum;
 import com.sparta.learnspring.service.PostService;
 import org.springframework.security.access.annotation.Secured;
@@ -24,31 +24,31 @@ public class PostsController {
     // 게시글 작성
     @Secured(UserRoleEnum.Authority.USER)
     @PostMapping("/posts")
-    public ResponseDto responseDto(@RequestBody RequestDto requestDto, Principal principal) {
-        return postService.createPost(requestDto, principal);
+    public PostResponseDto responseDto(@RequestBody PostRequestDto postRequestDto, Principal principal) {
+        return postService.createPost(postRequestDto, principal);
 }
 
     // 게시글 조회
     @GetMapping("/posts")
-    public List<ResponseDto> displayPost() {
+    public List<PostResponseDto> displayPost() {
         return postService.displayPost();
     }
 
     // 선택 게시글 조회
     @GetMapping("/posts/{username}")
-    public List<ResponseDto> selectDisplayPost(@PathVariable String username) {
+    public List<PostResponseDto> selectDisplayPost(@PathVariable String username) {
         return postService.selectDisplayPost(username);
     }
 
     // 게시슬 수정
     @PutMapping("/posts/{id}")
-    public List<ResponseDto> UpdateDto(@PathVariable Long id, @RequestBody RequestDto requestDto, Principal principal) {
-        return postService.updatePost(id, requestDto, principal);
+    public List<PostResponseDto> UpdateDto(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto, Principal principal) {
+        return postService.updatePost(id, postRequestDto, principal);
     }
 
     // 게시글 삭제
     @DeleteMapping("/posts/{id}")
-    public MsgDto msgDto(@PathVariable Long id, @RequestBody RequestDto requestDto, Principal principal) {
-        return postService.deletePost(id, requestDto, principal);
+    public MsgDto msgDto(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto, Principal principal) {
+        return postService.deletePost(id, postRequestDto, principal);
     }
 }

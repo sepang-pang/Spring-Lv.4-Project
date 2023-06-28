@@ -1,6 +1,6 @@
 package com.sparta.learnspring.entity;
 
-import com.sparta.learnspring.dto.RequestDto;
+import com.sparta.learnspring.dto.PostRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,15 +26,15 @@ public class Post extends com.sparta.learnspring.entity.Timestamped {
 
 
 
-    public Post(RequestDto requestDto, Principal principal) {
+    public Post(PostRequestDto postRequestDto, Principal principal) {
         this.username = principal.getName();
-        this.title = requestDto.getTitle();
-        this.contents = requestDto.getContents();
+        this.title = postRequestDto.getTitle();
+        this.contents = postRequestDto.getContents();
     }
 
-    public void update (RequestDto requestDto) {
-        this.title = requestDto.getTitle();
-        this.contents = requestDto.getContents();
+    public void update (PostRequestDto postRequestDto) {
+        this.title = postRequestDto.getTitle();
+        this.contents = postRequestDto.getContents();
     }
 
 

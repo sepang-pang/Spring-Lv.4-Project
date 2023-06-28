@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class ResponseDto {
+public class PostResponseDto {
     private final String username;
     private final String title;
     private final String contents;
@@ -16,7 +16,7 @@ public class ResponseDto {
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
-    public ResponseDto(Post post) {
+    public PostResponseDto(Post post) {
         this.username = post.getUsername();
         this.title = post.getTitle();
         this.contents = post.getContents();
