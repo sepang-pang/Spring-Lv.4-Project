@@ -23,25 +23,6 @@ public class UserController {
         this.userService = userService;
     }
 
-//    @GetMapping("/user/login-page")
-//    public String loginPage() {
-//        log.info("로그인 페이지입니다.");
-//        return "login";
-//    }
-//
-//    @GetMapping("/user/login-page/error")
-//    public String error() {
-//        log.info("로그인이 실패하였습니다.");
-//        return "로그인이 실패하였습니다";
-//    }
-//
-//
-//    @GetMapping("/user/signup")
-//    public String signupPage() {
-//        log.info("회원가입 페이지입니다.");
-//        return "signup";
-//    }
-
     @PostMapping("/user/signup")
     public MsgDto signup(@RequestBody @Valid SignupRequestDto requestDto, BindingResult bindingResult) {
         // Validation 예외처리
@@ -61,13 +42,4 @@ public class UserController {
         return new MsgDto("권한 없음", HttpStatus.FORBIDDEN.value());
     }
 
-//    @PostMapping("/user/login")
-//    public String login(@RequestBody LoginRequestDto requestDto, HttpServletResponse res) {
-//        try {
-//            userService.login(requestDto, res);
-//        } catch (Exception e) {
-//            return "redirect:/api/user/login-page/error";
-//        }
-//        return "redirect:/api/user/login-page";
-//    }
 }
