@@ -13,7 +13,7 @@ public class SignupRequestDto {
     private String username;
 
     @NotBlank
-    @Pattern(regexp = "^[a-zA-z0-9]{8,15}$", message = "최소 8자 이상, 15자 이하이며 알파벳 대소문자(a~z, A~Z), 숫자(0~9)로 작성해주십시오")
+    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\\\"\\\\\\\\|,.<>\\\\/?]).{8,15}$", message = "최소 8자 이상, 특수문자 포함 15자 이하이며 알파벳 대소문자(a~z, A~Z), 숫자(0~9)로 작성해주십시오")
     private String password;
 
     @NotBlank
