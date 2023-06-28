@@ -1,6 +1,6 @@
 package com.sparta.learnspring.entity;
 
-import com.sparta.learnspring.dto.CommentResponseDto;
+import com.sparta.learnspring.dto.CommentRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +22,9 @@ public class Comment extends com.sparta.learnspring.entity.Timestamped {
     @Column(name = "contents", nullable = false)
     private String contents;
 
-    private Comment(CommentResponseDto commentResponseDto, Principal principal) {
+    public Comment(CommentRequestDto commentRequestDto, Principal principal) {
         this.username = principal.getName();
-        this.contents = commentResponseDto.getContents();
+        this.contents = commentRequestDto.getContents();
     }
 
 }

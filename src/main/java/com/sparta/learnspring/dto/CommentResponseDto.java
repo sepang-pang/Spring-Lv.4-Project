@@ -1,7 +1,6 @@
 package com.sparta.learnspring.dto;
 
 import com.sparta.learnspring.entity.Comment;
-import com.sparta.learnspring.entity.Post;
 import lombok.Getter;
 import lombok.Setter;
 
