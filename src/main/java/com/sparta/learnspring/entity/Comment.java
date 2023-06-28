@@ -31,4 +31,8 @@ public class Comment extends com.sparta.learnspring.entity.Timestamped {
         this.contents = commentRequestDto.getContents();
     }
 
+    public void update (CommentRequestDto commentRequestDto) {
+        this.contents = commentRequestDto.getContents();
+    }
+
 }
