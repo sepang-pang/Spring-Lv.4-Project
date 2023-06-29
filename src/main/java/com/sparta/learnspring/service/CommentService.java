@@ -41,34 +41,49 @@ public class CommentService {
 
     @Transactional
     public List<CommentResponseDto> updateComment(Long id, CommentRequestDto commentRequestDto, Principal principal) {
-        // 해당 댓글이 있는
+        // 해당 댓글이 있는지 확인
         Comment comment = findComment(id);
 
-        // 사용자 확인
-        if (comment.getUsername().equals(principal.getName())) {
-            comment.update(commentRequestDto);
-            log.info("댓글 수정 성공");
-            return commentRepository.findById(id).stream().map(CommentResponseDto::new).toList();
-        } else {
-            log.info("게시글 수정 실패 : 작성자가 아닙니다.");
+        try {
+
+            // 사용자 확인
+            if (comment.getUsername().equals(principal.getName())) {
+                comment.update(commentRequestDto);
+                log.info("댓글 수정 성공");
+                return commentRepository.findById(id).stream().map(CommentResponseDto::new).toList();
+            } else {
+                log.info("게시글 수정 실패 : 작성자가 아닙니다.");
+                throw new IllegalArgumentException("작성자만 수정할 수 있습니다.");
+            }
+
+        } catch (IllegalArgumentException e) {
             return null;
         }
+
     }
 
     public MsgDto deletePost(Long id, CommentRequestDto commentRequestDto, Principal principal) {
         // 해당 게시글이 존재하는지 확인
         Comment comment = findComment(id);
 
-        // 사용자 확인
-        if (comment.getUsername().equals(principal.getName())) {
-            // 게시글 삭제
-            commentRepository.delete(comment);
-            log.info("댓글 삭제 성공");
-            return new MsgDto("댓글 삭제 성공", HttpStatus.OK.value());
-        } else {
-            log.info("댓글 삭제 실패");
-            return new MsgDto("댓글 삭제 실패", HttpStatus.BAD_REQUEST.value());
+        try {
+
+            // 사용자 확인
+            if (comment.getUsername().equals(principal.getName())) {
+                // 게시글 삭제
+                commentRepository.delete(comment);
+                log.info("댓글 삭제 성공");
+                return new MsgDto("댓글 삭제 성공", HttpStatus.OK.value());
+            } else {
+                log.info("댓글 삭제 실패");
+                throw new IllegalArgumentException("작성자만 삭제할 수 있습니다.");
+            }
+
+        } catch (IllegalArgumentException e) {
+            return new MsgDto(e.getMessage(), HttpStatus.BAD_REQUEST.value());
         }
+
+
     }
 
     private Comment findComment(Long id) {
