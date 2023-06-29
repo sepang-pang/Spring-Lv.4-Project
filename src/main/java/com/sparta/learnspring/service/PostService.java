@@ -10,8 +10,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -59,14 +57,27 @@ public class PostService {
         // 해당 메모가 존재하는지 확인 // Optional
         Post post = findPost(id);
 
-        // 현재 인가된 사용자의 권한을 확인하여, 이를 Boolean 타입으로 저장하고 싶었습니다.
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        // 현재 인가된 사용자의 권한을 확인하여, 이를 Boolean 타입으로 저장하고 싶었습니다.
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//        Boolean isAdmin = authentication.getAuthorities().stream().equals("ROLE_ADMIN");함
+//        try {
+//            if (isAdmin || post.getUsername().equals(principal.getName())) {
+//                post.update(postRequestDto);
+//                log.info("게시글 수정 성공");
+//                return postRepository.findById(id).stream().map(PostResponseDto::new).toList();
+//            } else {
+//                log.info("게시글 수정 실패");
+//                throw new IllegalArgumentException("작성자만 수정할 수 있습니다.");
+//            }
+//        } catch (IllegalArgumentException e) {
+//            return null;
+//        }
 
-        Boolean isAdmin = authentication.getAuthorities().stream().equals("ROLE_ADMIN");
-
+        // 아래는 권한 여부와 상관 없이, 현재 인가된 user 의 name 만 비교하여, 수정을 진행하는 코드입니다.
         // 사용자 확인
         try {
-            if (isAdmin || post.getUsername().equals(principal.getName())) {
+            if (post.getUsername().equals(principal.getName())) {
                 post.update(postRequestDto);
                 log.info("게시글 수정 성공");
                 return postRepository.findById(id).stream().map(PostResponseDto::new).toList();
