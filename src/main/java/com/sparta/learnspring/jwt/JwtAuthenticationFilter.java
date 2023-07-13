@@ -2,7 +2,7 @@ package com.sparta.learnspring.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.learnspring.dto.LoginRequestDto;
-import com.sparta.learnspring.dto.MsgDto;
+import com.sparta.learnspring.exception.RestApiException;
 import com.sparta.learnspring.entity.UserRoleEnum;
 import com.sparta.learnspring.security.UserDetailsImpl;
 import jakarta.servlet.FilterChain;
@@ -51,7 +51,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info("로그인 성공 및 JWT 생성");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(new ObjectMapper().writeValueAsString(new MsgDto("로그인 성공", HttpStatus.OK.value())));
+        response.getWriter().write(new ObjectMapper().writeValueAsString(new RestApiException("로그인 성공", HttpStatus.OK.value())));
 
         String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
         UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
@@ -67,6 +67,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info("로그인 실패");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(new ObjectMapper().writeValueAsString(new MsgDto("로그인 실패", HttpStatus.UNAUTHORIZED.value())));
+        response.getWriter().write(new ObjectMapper().writeValueAsString(new RestApiException("로그인 실패", HttpStatus.UNAUTHORIZED.value())));
     }
 }

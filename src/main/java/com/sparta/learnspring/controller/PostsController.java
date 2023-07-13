@@ -1,8 +1,8 @@
 package com.sparta.learnspring.controller;
 
-import com.sparta.learnspring.dto.MsgDto;
 import com.sparta.learnspring.dto.PostRequestDto;
 import com.sparta.learnspring.dto.PostResponseDto;
+import com.sparta.learnspring.exception.RestApiException;
 import com.sparta.learnspring.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +32,7 @@ public class PostsController {
     }
 
     // 선택 게시글 조회
-    @GetMapping("/posts/{username}")
+    @GetMapping("/posts/{username}") // RequestParam 방식으로 수정
     public List<PostResponseDto> selectDisplayPost(@PathVariable String username) {
         return postService.selectDisplayPost(username);
     }
@@ -45,7 +45,7 @@ public class PostsController {
 
     // 게시글 삭제
     @DeleteMapping("/posts/{id}")
-    public MsgDto msgDto(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto, Principal principal) {
+    public RestApiException msgDto(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto, Principal principal) {
         return postService.deletePost(id, postRequestDto, principal);
     }
 }
