@@ -1,12 +1,16 @@
 package com.sparta.learnspring.exception;
 
 import com.sparta.learnspring.exception.custom.CommentNotFoundException;
+import com.sparta.learnspring.exception.custom.DuplicateException;
+import com.sparta.learnspring.exception.custom.InvalidPasswordException;
 import com.sparta.learnspring.exception.custom.PostNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.io.IOException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -69,8 +73,41 @@ public class GlobalExceptionHandler {
         );
     }
 
+    // 중복 에러
+    @ExceptionHandler({DuplicateException.class})
+    public ResponseEntity<RestApiException> duplicateUserExceptionHandler(DuplicateException ex) {
+        RestApiException restApiException = new RestApiException(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(
+                // HTTP body
+                restApiException,
+                // HTTP status code
+                HttpStatus.BAD_REQUEST
+        );
+    }
 
 
+    // 틀린 암호
+    @ExceptionHandler({InvalidPasswordException.class})
+    public ResponseEntity<RestApiException> invalidPasswordExceptionHandler(InvalidPasswordException ex) {
+        RestApiException restApiException = new RestApiException(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(
+                // HTTP body
+                restApiException,
+                // HTTP status code
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ExceptionHandler({IOException.class})
+    public ResponseEntity<RestApiException> IOExceptionHandler(IOException ex) {
+        RestApiException restApiException = new RestApiException(ex.getMessage(), HttpStatus.UNAUTHORIZED.value());
+        return new ResponseEntity<>(
+                // HTTP body
+                restApiException,
+                // HTTP status code
+                HttpStatus.UNAUTHORIZED
+        );
+    }
 
 
 

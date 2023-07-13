@@ -1,6 +1,6 @@
 package com.sparta.learnspring.controller;
 
-import com.sparta.learnspring.dto.MsgDto;
+import com.sparta.learnspring.exception.RestApiException;
 import com.sparta.learnspring.dto.SignupRequestDto;
 import com.sparta.learnspring.service.UserService;
 import jakarta.validation.Valid;
@@ -22,24 +22,23 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
     @PostMapping("/user/signup")
-    public MsgDto signup(@RequestBody @Valid SignupRequestDto requestDto, BindingResult bindingResult) {
+    public RestApiException signup(@RequestBody @Valid SignupRequestDto requestDto, BindingResult bindingResult) {
         // Validation 예외처리
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         if (fieldErrors.size() > 0) {
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
                 log.error(fieldError.getField() + " 필드 : " + fieldError.getDefaultMessage());
             }
-            return new MsgDto("회원가입 실패", HttpStatus.BAD_REQUEST.value());
+            return new RestApiException("회원가입 실패", HttpStatus.BAD_REQUEST.value());
         }
         return userService.signup(requestDto);
     }
 
     @GetMapping("/user/forbidden")
-    public MsgDto forbidden() {
+    public RestApiException forbidden() {
         log.info("접근 불가입니다.");
-        return new MsgDto("권한 없음", HttpStatus.FORBIDDEN.value());
+        return new RestApiException("권한 없음", HttpStatus.FORBIDDEN.value());
     }
 
 }
