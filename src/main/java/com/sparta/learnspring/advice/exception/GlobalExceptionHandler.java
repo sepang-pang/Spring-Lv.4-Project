@@ -58,6 +58,18 @@ public class GlobalExceptionHandler {
         );
     }
 
+    // 좋아요 Not Found
+    @ExceptionHandler({LikeNotFoundException.class})
+    public ResponseEntity<RestApiException> notFoundLikeExceptionHandler(LikeNotFoundException ex) {
+        RestApiException restApiException = new RestApiException(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+        return new ResponseEntity<>(
+                // HTTP body
+                restApiException,
+                // HTTP status code
+                HttpStatus.NOT_FOUND
+        );
+    }
+
     // 본인이 아닐 때
     @ExceptionHandler({AccessDeniedException.class})
     public ResponseEntity<RestApiException> accessDeniedExceptionHandler(AccessDeniedException ex) {
