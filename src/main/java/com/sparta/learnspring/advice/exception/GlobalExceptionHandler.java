@@ -1,9 +1,6 @@
 package com.sparta.learnspring.advice.exception;
 
-import com.sparta.learnspring.advice.custom.CommentNotFoundException;
-import com.sparta.learnspring.advice.custom.DuplicateException;
-import com.sparta.learnspring.advice.custom.InvalidPasswordException;
-import com.sparta.learnspring.advice.custom.PostNotFoundException;
+import com.sparta.learnspring.advice.custom.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -109,6 +106,16 @@ public class GlobalExceptionHandler {
         );
     }
 
+    // 본인 게시글, 댓글 좋아요 금지
+    public ResponseEntity<RestApiException> SelfLikeNotAllowedExceptionHandler(SelfLikeNotAllowedException ex) {
+        RestApiException restApiException = new RestApiException(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(
+                // HTTP body
+                restApiException,
+                // HTTP status code
+                HttpStatus.BAD_REQUEST
+        );
+    }
 
 
 }
