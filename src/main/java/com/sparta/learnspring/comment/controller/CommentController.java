@@ -22,20 +22,20 @@ public class CommentController {
 
     // 댓글 작성
     @Secured(UserRoleEnum.Authority.USER)
-    @PostMapping("/comments/{postId}") // 최종적으로 어떤 정보가 올지 명시해주는 게 restfull
+    @PostMapping("/posts/{postId}/comments") // 최종적으로 어떤 정보가 올지 명시해주는 게 restfull
     public CommentResponseDto commentResponseDto (@PathVariable Long postId, @RequestBody CommentRequestDto commentRequestDto, Principal principal) {
         return commentService.createComment(postId, commentRequestDto, principal);
     }
 
     // 댓글 수정
-    @PutMapping("/comments/{id}")
-    public List<CommentResponseDto> UpdateDto(@PathVariable Long id, @RequestBody CommentRequestDto commentRequestDto, Principal principal) {
-        return commentService.updateComment(id, commentRequestDto, principal);
+    @PutMapping("/posts/{commentsId}/comments")
+    public List<CommentResponseDto> UpdateDto(@PathVariable Long commentsId, @RequestBody CommentRequestDto commentRequestDto, Principal principal) {
+        return commentService.updateComment(commentsId, commentRequestDto, principal);
     }
 
     // 댓글 삭제
-    @DeleteMapping("/comments/{id}")
-    public RestApiException msgDto(@PathVariable Long id, @RequestBody CommentRequestDto commentRequestDto, Principal principal) {
-        return commentService.deletePost(id, commentRequestDto, principal);
+    @DeleteMapping("/posts/{commentsId}/comments")
+    public RestApiException msgDto(@PathVariable Long commentsId, @RequestBody CommentRequestDto commentRequestDto, Principal principal) {
+        return commentService.deletePost(commentsId, commentRequestDto, principal);
     }
 }
