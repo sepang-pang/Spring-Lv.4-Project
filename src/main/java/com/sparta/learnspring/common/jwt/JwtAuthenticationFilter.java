@@ -1,15 +1,14 @@
 package com.sparta.learnspring.common.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.learnspring.advice.exception.RestApiException;
-import com.sparta.learnspring.common.security.UserDetailsImpl;
 import com.sparta.learnspring.user.dto.LoginRequestDto;
+import com.sparta.learnspring.advice.exception.RestApiException;
 import com.sparta.learnspring.user.entity.UserRoleEnum;
+import com.sparta.learnspring.common.security.UserDetailsImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -22,11 +21,16 @@ import java.io.IOException;
 import java.util.Locale;
 
 @Slf4j(topic = "로그인 및 JWT 생성")
-@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-
     private final MessageSource messageSource;
     private final JwtUtil jwtUtil;
+
+    public JwtAuthenticationFilter(JwtUtil jwtUtil, MessageSource messageSource) {
+        this.jwtUtil = jwtUtil;
+        this.messageSource = messageSource;
+        setFilterProcessesUrl("/api/user/login");
+    }
+
 
 
     @Override
