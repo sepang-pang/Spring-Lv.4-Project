@@ -22,7 +22,7 @@ public class PostLikeController {
         return postLikeService.insert(postId, userDetails.getUser());
     }
 
-    @DeleteMapping("/post/{postId}/like")
+    @DeleteMapping("/post/{postId}/dislike")
     public ResponseEntity<ApiResponseDto> delete(@PathVariable Long postId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return postLikeService.delete(postId, userDetails.getUser());
     }
