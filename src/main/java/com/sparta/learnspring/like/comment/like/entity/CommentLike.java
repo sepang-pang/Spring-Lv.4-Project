@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name = "comment_like")
+@Table(name = "comment_like", uniqueConstraints = {
+        @UniqueConstraint(name = "UniqueLikeUser", columnNames = {"user_id", "comment_id"})
+})
 @NoArgsConstructor
 public class CommentLike {
     @Id
@@ -22,4 +24,9 @@ public class CommentLike {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id")
     private Comment comment;
+
+    public CommentLike(User user, Comment comment) {
+        this.user = user;
+        this.comment = comment;
+    }
 }

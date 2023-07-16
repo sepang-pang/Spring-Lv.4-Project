@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -16,16 +18,23 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@DynamicInsert
 @Table(name = "comment")
 @NoArgsConstructor
 public class Comment extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "username", nullable = false)
     private String username;
+
     @Column(name = "contents", nullable = false)
     private String contents;
+
+    @ColumnDefault("0")
+    @Column(name = "likes", nullable = false)
+    private Integer likes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
@@ -43,4 +52,11 @@ public class Comment extends Timestamped {
         this.contents = commentRequestDto.getContents();
     }
 
+    public void countLike() {
+        this.likes++;
+    }
+
+    public void decreaseLike() {
+        this.likes--;
+    }
 }
