@@ -62,7 +62,7 @@ public class Post extends Timestamped {
         likes++;
     }
 
-    public void discount() {
+    public void decreaseLike() {
         likes--;
     }
 }
