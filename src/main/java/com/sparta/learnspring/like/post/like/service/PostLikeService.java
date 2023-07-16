@@ -21,7 +21,7 @@ import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j(topic = "PostLikeService Log")
+@Slf4j(topic = "Post Like Service Log")
 public class PostLikeService {
 
     private final PostLikeRepository postLikeRepository;
@@ -38,7 +38,7 @@ public class PostLikeService {
         if (post.getUsername().equals(user.getUsername())) {
             throw new SelfLikeNotAllowedException(
                     messageSource.getMessage(
-                            "self.not.allowed",
+                            "self.not.allowed.post",
                             null,
                             Locale.getDefault()
                     )
@@ -80,7 +80,7 @@ public class PostLikeService {
                                 )
                         )
                 );
-        post.discount();
+        post.decreaseLike();
         postLikeRepository.delete(like);
         return ResponseEntity.ok().body(new ApiResponseDto(200L, "좋아요 삭제 성공"));
     }
